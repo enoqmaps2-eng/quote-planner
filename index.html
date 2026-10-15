@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Upgrade Quote Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Upgrade Quote Planner</h1>
+    <div class="meta">Bedrock Homes · Change Request CO_2</div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Filter items">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="on" aria-pressed="false">Keeping</button>
+          <button type="button" data-filter="off" aria-pressed="false">Cut</button>
+        </div>
+        <input class="search" id="search" type="search" placeholder="Search items" aria-label="Search items">
+        <button class="btn primary" type="button" id="addToggle" aria-expanded="false">Add item</button>
+      </div>
+
+      <form class="addform" id="addForm" hidden>
+        <label class="wide">Item name<input id="fName" required placeholder="e.g. Pantry shelving"></label>
+        <label>Section<input id="fCat" list="catList" required placeholder="Pick or type"></label>
+        <datalist id="catList"></datalist>
+        <label>Unit<select id="fUnit"><option value="">each</option><option value="sq ft">sq ft</option><option value="LNFT">LNFT</option></select></label>
+        <label>Qty<input id="fQty" type="number" step="any" value="1"></label>
+        <label>Rate ($)<input id="fRate" type="number" step="any" required placeholder="0.00"></label>
+        <label class="wide">Notes (optional)<input id="fDesc"></label>
+        <div class="btns wide"><button class="btn primary" type="submit">Add to quote</button><button class="btn" type="button" id="addCancel">Cancel</button></div>
+      </form>
+
+      <div id="list"></div>
+    </main>
+
+    <aside class="summary" aria-label="Budget summary">
+      <div class="credit-field">
+        <label class="label" for="credit">Design Studio credit</label>
+        <div class="money-input"><span>$</span><input id="credit" type="number" step="any" min="0" inputmode="decimal"></div>
+      </div>
+      <div class="balance ok" id="balance">
+        <span class="label" id="balLabel" style="color:inherit">Credit remaining</span>
+        <span class="big" id="balValue">$0.00</span>
+      </div>
+      <div class="bar" id="bar"><i></i></div>
+      <dl class="rows">
+        <div><dt>Items kept</dt><dd id="sCount">0 of 0</dd></div>
+        <div><dt>Selected upgrades</dt><dd id="sSub">$0.00</dd></div>
+        <div><dt>Credit applied</dt><dd id="sCred">-$0.00</dd></div>
+        <div id="gstRow" hidden><dt>GST estimate</dt><dd id="sGst">$0.00</dd></div>
+        <div><dt><b id="owedLabel">Amount owed</b></dt><dd><b id="sOwed">$0.00</b></dd></div>
+      </dl>
+      <label class="gst"><input type="checkbox" id="gstOn"> Estimate 5% GST on any amount owed</label>
+      <div class="compare">
+        <span>First quote: owed <b id="oOwed"></b></span>
+        <span id="oSaved"></span>
+      </div>
+      <div class="btns">
+        <button class="btn primary" type="button" id="shareBtn">Summary to share</button>
+        <button class="btn danger" type="button" id="resetBtn">Reset to first quote</button>
+      </div>
+      <div class="sharebox" id="shareBox" hidden>
+        <textarea id="shareText" readonly aria-label="Summary text"></textarea>
+        <div class="btns"><button class="btn" type="button" id="copyBtn">Copy text</button><span class="label" id="copyMsg" style="align-self:center"></span></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="mbar ok" id="mbar" aria-live="polite">
+  <div><div class="label" id="mLabel">Credit remaining</div><div class="v" id="mValue">$0.00</div></div>
+  <div class="label" id="mCount" style="text-align:right"></div>
+</div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
